@@ -1,5 +1,10 @@
+var express = require('express');
+var app = express();
+
 var FB = require('fb');
-var accessToken = '';
+
+var result;
+
 FB.api('oauth/access_token', {
     client_id: '1584641475160139',
     client_secret: 'd1690d44adb151149209e2912ceef21e',
@@ -19,12 +24,9 @@ FB.api('oauth/access_token', {
        return;
       }
       console.log(res);
+	  result = res;
     });
 });
-
-
-
-
 
 var CronJob = require('cron').CronJob;
 new CronJob('* * * * * *', function() {
@@ -41,6 +43,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   response.render('pages/index');
+  response.end(result);
 });
 
 app.listen(app.get('port'), function() {
