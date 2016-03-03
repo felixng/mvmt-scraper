@@ -1,26 +1,32 @@
 {
   "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
+  "version": "1.0.0",
+  "description": "A barebones Node.js app using [Express 4](http://expressjs.com/).",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
-    "ejs": "2.3.3",
-    "express": "4.13.3"
+    "body-parser": "^1.15.0",
+    "cron": "^1.1.0",
+    "connect": "^3.4.1",
+    "express": "^4.13.3",
+    "ejs": "^2.3.3",
+    "facebook-node-sdk": "^0.2.0",
+    "fb": "^1.0.2",
+    "fbgraph": "^1.1.0",
+    "cookie-parser": "^1.4.1",
+    "express-session": "^1.13.0"
   },
-  "engines": {
-    "node": "0.12.7"
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git+https://github.com/nfelix/mvmt-scraper.git"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nfelix/mvmt-scraper/issues"
+  },
+  "homepage": "https://github.com/nfelix/mvmt-scraper#readme"
 }
