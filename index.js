@@ -1,37 +1,39 @@
 var express = require('express');
 var app = express();
-
 var FB = require('fb');
-
-var result;
-
-FB.api('oauth/access_token', {
-    client_id: '1584641475160139',
-    client_secret: 'd1690d44adb151149209e2912ceef21e',
-    grant_type: 'client_credentials'
-}, function (res) {
-    if(!res || res.error) {
-        console.log(!res ? 'error occurred' : res.error);
-        return;
-    }
-
-    accessToken = res.access_token;
-    
-    FB.setAccessToken(accessToken);
-    FB.api('/mvmtApp', { fields: ['id', 'name', 'about'] }, function (res) {
-      if(!res || res.error) {
-       console.log(!res ? 'error occurred' : res.error);
-       return;
-      }
-      console.log(res);
-	  result = res;
-    });
-});
-
 var CronJob = require('cron').CronJob;
-new CronJob('* * * * * *', function() {
-  console.log('You will see this message every second');
-}, null, true, 'America/Los_Angeles');
+var job = new CronJob({
+  cronTime: '0 0 * * * *',
+  grab: function() {
+	 FB.api('oauth/access_token', {
+				client_id: '1584641475160139',
+				client_secret: 'd1690d44adb151149209e2912ceef21e',
+				grant_type: 'client_credentials'
+			}, function (response) {
+				if(!response || response.error) {
+					console.log(!response ? 'error occurred' : response.error);
+					return;
+				}
+
+				accessToken = response.access_token;
+				
+				FB.setAccessToken(accessToken);
+				FB.api('/mvmtApp', { fields: ['id', 'name', 'about'] }, function (response) {
+				  if(!response || response.error) {
+				   console.log(!response ? 'error occurred' : response.error);
+				   return;
+				  }
+				  console.log(new Date());
+				  console.log(response);
+				});
+			});
+  },
+  start: true,
+  timeZone: 'America/Los_Angeles'
+});
+job.start();
+
+
 
 app.set('port', (process.env.PORT || 5000));
 
