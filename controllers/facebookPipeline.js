@@ -48,7 +48,7 @@ var pingAPI = function(){
 	  if(err) {
 		return console.error('could not connect to postgres', err);
 	  }
-	  client.query("SELECT facebook FROM public.resources where trim(facebook) != '';", function(err, result) {
+	  client.query("SELECT * FROM public.resources where trim(facebook) != '';", function(err, result) {
 		if(err) {
 		  return console.error('error running query', err);
 		}
@@ -62,8 +62,8 @@ var pingAPI = function(){
 			   console.log(!response ? 'error occurred' : response.error);
 			   return;
 			  }
-			  //checkAndUpdate(response);
-			  console.log(response);
+			  checkAndUpdate(entry,response);
+			  //console.log(response);
 			});
 		});
 		
@@ -72,6 +72,11 @@ var pingAPI = function(){
 	});
 }
 
-var checkAndUpdate = function(){
-	
+var checkAndUpdate = function(entry, response){
+	//be very defensive
+	if (response.about && response.about.length && response.about.length > entry.desc){
+		console.log("===============" + response.name + "NEED TO UPDATE===============")
+		console.log(response.about);
+		console.log(entry.desc);
+	}
 }
