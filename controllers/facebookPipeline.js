@@ -1,13 +1,15 @@
 var FB = require('fb');
 
 var config = {
-	columns: ['id', 'name', 'about']
+	columns: ['id', 'name', 'about'],
+	client_id: '1584642161826737',
+	client_secret: 'ba483f4532ef9d6ad76c4e67db9b50ce'
 }
 module.exports = {
 	facebookStart: function (){
 		FB.api('oauth/access_token', {
-				client_id: '1584642161826737',
-				client_secret: 'ba483f4532ef9d6ad76c4e67db9b50ce',
+				client_id: config.client_id,
+				client_secret: config.client_secret,
 				grant_type: 'client_credentials'
 			}, function (response) {
 				if(!response || response.error) {
@@ -22,10 +24,10 @@ module.exports = {
 	}
 };
 
-var getAccessToken = function(client_id, client_secret){
+/* var getAccessToken = function(){
 	FB.api('oauth/access_token', {
-				client_id: '1584642161826737',
-				client_secret: 'ba483f4532ef9d6ad76c4e67db9b50ce',
+				client_id: config.client_id,
+				client_secret: config.client_secret,
 				grant_type: 'client_credentials'
 			}, function (response) {
 				if(!response || response.error) {
@@ -35,7 +37,7 @@ var getAccessToken = function(client_id, client_secret){
 				accessToken = response.access_token;
 				FB.setAccessToken(accessToken);
 			})
-}
+} */
 
 var pingAPI = function(){
 	var pg = require('pg');
