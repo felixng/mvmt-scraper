@@ -1,5 +1,8 @@
 var FB = require('fb');
 
+var config = {
+	columns: ['id', 'name', 'about']
+}
 module.exports = {
 	facebookStart: function (){
 		FB.api('oauth/access_token', {
@@ -52,12 +55,12 @@ var pingAPI = function(){
 			//ping facebook
 			var query = '/' + entry.facebook;
 			
-			FB.api(query, { fields: ['id', 'name', 'about'] }, function (response) {
+			FB.api(query, { fields: config.columns }, function (response) {
 			  if(!response || response.error) {
 			   console.log(!response ? 'error occurred' : response.error);
 			   return;
 			  }
-			  console.log(new Date());
+			  //checkAndUpdate(response);
 			  console.log(response);
 			});
 		});
@@ -65,4 +68,8 @@ var pingAPI = function(){
 		client.end();
 	  });
 	});
+}
+
+var checkAndUpdate = function(){
+	
 }
